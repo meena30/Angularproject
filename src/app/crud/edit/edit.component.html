@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-12 col-md-12 sol-sm-12">
+      <form [formGroup]="editForm" (ngSubmit)="updateProduct(editForm.value)">
+
+      	<div class="row"  *ngIf="showMsg">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+              <strong>Data updated success!</strong>
+			</p>
+        </div>
+      	</div>
+
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" placeholder="Enter Name" formControlName="name" required>
+          
+        </div>
+        <div class="form-group">
+          <label>Desc</label>
+          <input type="text" class="form-control" placeholder="Description" formControlName="desc" required>
+          
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input type="number" class="form-control" placeholder="price" formControlName="price" required>
+          
+        </div>
+        <button type="submit" class="btn btn-primary" >Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
