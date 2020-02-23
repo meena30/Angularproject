@@ -24,11 +24,13 @@ import { ViewComponent } from './crud/view/view.component';
 import { CreateComponent } from './crud/create/create.component';
 import { EditComponent } from './crud/edit/edit.component';
 import { OnepageComponent } from './onepage/onepage.component';
+import { UsereditComponent } from './useredit/useredit.component';
 
 const appRoutes: Routes = [
 { path: '', component: OnepageComponent },
 { path: 'reactive_form', component: ReactiveComponent },
 { path: 'customer', component: CustomerComponent },
+{path: 'useredit/:id', component: UsereditComponent},
 {path: 'view', component: ViewComponent},
 {path: 'create', component: CreateComponent},
 {path: 'edit/:id', component: EditComponent}
@@ -44,7 +46,8 @@ const appRoutes: Routes = [
     ViewComponent,
     CreateComponent,
     EditComponent,
-    OnepageComponent
+    OnepageComponent,
+    UsereditComponent
   ],
   imports: [
     BrowserModule,

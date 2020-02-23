@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import {FormGroup,FormControl,FormBuilder,Validators} from '@angular/forms';
 import {CrudService} from "../services/crud.service";
 
@@ -13,7 +14,7 @@ export class ReactiveComponent implements OnInit {
     submitted = false;
     
 
-  constructor(private formBuilder: FormBuilder,private crudService: CrudService) { }
+  constructor(private formBuilder: FormBuilder,private crudService: CrudService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
   	this.registerForm = this.formBuilder.group({
@@ -33,6 +34,7 @@ export class ReactiveComponent implements OnInit {
     }
 
 msg: string = null;
+fname: string = null;
 showMsg: boolean = false;
 
 onSubmit() {
@@ -46,20 +48,21 @@ onSubmit() {
 
         //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
 
-        console.log(this.registerForm.value);
+        //console.log(this.registerForm.value);
 
       this.crudService.createCustomer(this.registerForm.value).subscribe(result => {
 
-         console.log("user created, ", result);
-         console.log(result.fname);
+         //console.log("user created, ", result);
+         //console.log(result.fname);
          
+         this.router.navigate(['customer']);
          this.msg= result.fname;
          this.showMsg= true;
          this.registerForm.reset();
       
     });
 
-    }
+  }
 onReset() {
         this.submitted = false;
         this.registerForm.reset();
