@@ -19,13 +19,14 @@ ngOnInit() {
 getUserDetails(){
 	this.crudService.fetchUserList().subscribe(data =>{
       this.users = data;
-      console.log(this.users);
+      //console.log(this.users);
+      
     })
 }
 
 deleteRow(id){
 	this.crudService.deleteUser(id).subscribe(data =>{
-		console.log(data);
+		//console.log(data);
       this.getUserDetails();
     })
 

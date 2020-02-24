@@ -45,6 +45,8 @@ updateProduct(values){
     updateData.append('name', values.name);
     updateData.append('description', values.desc);
     updateData.append('price', values.price);
+
+    //console.log(updateData);
     this.crudService.updateProduct(updateData).subscribe(result => {
       this.router.navigate(['view']);
       //this.editForm.reset();

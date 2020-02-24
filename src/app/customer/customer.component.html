@@ -11,13 +11,14 @@
 
     </tr>
 
-    <tr *ngFor="let user of users">
-      <td>{{ user.ID }}</td>
+    <tr *ngFor="let user of users; index as i">
+      <td>{{i+1}}</td>
       <td>{{ user.FirstName }}</td>
       <td>{{ user.LastName }}</td>
       <td>{{ user.Email }}</td>
       <td>
-        <button (click)="deleteRow(user.ID)">Delete</button>
+        <a [routerLink]="['/useredit/', user.ID]"><button type="button" class="btn btn-info btn-sm">Edit</button></a>
+        <button class="btn btn-danger btn-sm" id="remove" (click)="deleteRow(user.ID)">Delete</button>
         <!--<button (click)="selectPolicy(policy)">Update</button>-->
       </td>
     </tr>

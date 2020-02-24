@@ -41,6 +41,13 @@ fetchUserList(){
 deleteUser(id){
 	return this.http.get(this.url+ 'delete_user.php?id=' + id);
 }
+editUserData(id){
+  return this.http.get(this.url+ 'edit_user.php?id=' + id);
+}
+
+updateUserData(data){
+  return this.http.post(this.url + 'update_user.php', data);
+}
 
 
 }
