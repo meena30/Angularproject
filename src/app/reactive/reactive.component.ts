@@ -50,7 +50,7 @@ onSubmit() {
 
         //console.log(this.registerForm.value);
 
-      this.crudService.createCustomer(this.registerForm.value).subscribe(result => {
+      this.crudService.createCustomer(this.registerForm.value).subscribe((result:any) => {
 
          //console.log("user created, ", result);
          //console.log(result.fname);
