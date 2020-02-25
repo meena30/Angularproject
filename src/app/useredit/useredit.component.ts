@@ -36,7 +36,7 @@ export class UsereditComponent implements OnInit {
   editUser(id){
   	//console.log(id);
 
-  	this.crudService.editUserData(id).subscribe(data => {
+  	this.crudService.editUserData(id).subscribe((data:any) => {
     	//console.log(data);
     	this.editForm.setValue({
 	      firstName: data.FirstName,
