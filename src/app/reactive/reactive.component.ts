@@ -55,7 +55,7 @@ onSubmit() {
          //console.log("user created, ", result);
          //console.log(result.fname);
          
-         this.router.navigate(['customer']);
+         this.router.navigate(['/']);
          this.msg= result.fname;
          this.showMsg= true;
          this.registerForm.reset();
