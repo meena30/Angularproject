@@ -10,6 +10,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
+import { AuthGuard } from './auth/auth.guard';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,15 +27,17 @@ import { CreateComponent } from './crud/create/create.component';
 import { EditComponent } from './crud/edit/edit.component';
 import { OnepageComponent } from './onepage/onepage.component';
 import { UsereditComponent } from './useredit/useredit.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
-{ path: '', component: OnepageComponent },
-{ path: 'reactive_form', component: ReactiveComponent },
-{ path: 'customer', component: CustomerComponent },
+
+{ path: '', component: CustomerComponent, canActivate: [AuthGuard] },
+{ path: 'reactive_form', component: ReactiveComponent, canActivate: [AuthGuard] },
 {path: 'useredit/:id', component: UsereditComponent},
 {path: 'view', component: ViewComponent},
 {path: 'create', component: CreateComponent},
-{path: 'edit/:id', component: EditComponent}
+{path: 'edit/:id', component: EditComponent},
+{path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
@@ -47,7 +51,8 @@ const appRoutes: Routes = [
     CreateComponent,
     EditComponent,
     OnepageComponent,
-    UsereditComponent
+    UsereditComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

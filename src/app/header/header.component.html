@@ -10,15 +10,17 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" style="padding-left: 150px;" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" style="padding-left: 150px;" id="navbarSupportedContent" *ngIf="currentUser">
     <ul class="navbar-nav mr-auto">
 
      <li class="nav-item active">
-          <a routerLink='/reactive_form' class="nav-link" href="#"><b>ReactiveForm</b></a>
+          <a routerLink='/reactive_form' class="nav-link" href="#"><b>Create User</b></a>
         </li>
-      <li class="nav-item active">
-          <a routerLink='/customer' class="nav-link" href="#"><b>Customer</b></a>
-        </li>  	
+        
+
+        <li class="nav-item active" >
+         <a class="nav-item nav-link" (click)="logout()">Logout</a>	
+       </li>
 	</ul>
 
     
