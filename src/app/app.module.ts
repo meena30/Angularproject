@@ -12,6 +12,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AuthGuard } from './auth/auth.guard';
 
+import {Role} from './models/role';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +30,7 @@ import { EditComponent } from './crud/edit/edit.component';
 import { OnepageComponent } from './onepage/onepage.component';
 import { UsereditComponent } from './useredit/useredit.component';
 import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const appRoutes: Routes = [
 
@@ -37,7 +40,8 @@ const appRoutes: Routes = [
 {path: 'view', component: ViewComponent},
 {path: 'create', component: CreateComponent},
 {path: 'edit/:id', component: EditComponent},
-{path: 'login', component: LoginComponent}
+{path: 'login', component: LoginComponent},
+{path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],data: { roles: [Role.Admin] }}
 ];
 
 @NgModule({
@@ -52,7 +56,8 @@ const appRoutes: Routes = [
     EditComponent,
     OnepageComponent,
     UsereditComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
