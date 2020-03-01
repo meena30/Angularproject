@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {FormGroup,FormControl,FormBuilder,Validators} from '@angular/forms';
 import {AuthenticationService} from "../services/authentication.service";
+import {Role} from '../models/role';
+
 
 @Component({
   selector: 'app-login',
@@ -34,11 +36,10 @@ loginForm: FormGroup;
 
       // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          
-	}
+
+    }
 
 	
-
 onSubmit() {
           this.submitted = true;
 
@@ -51,12 +52,16 @@ onSubmit() {
 
 		this.authenticationService.login(this.loginForm.value).subscribe((result:any) => {
 
-			this.router.navigate([this.returnUrl]);
+        //this.router.navigate([this.returnUrl]);
 
-			//this.router.navigate(['reactive_form']);
-			
-        });
-	}	
+        if(result.role == Role.Admin){
+            this.router.navigate(['dashboard']);
+        }
+        else{
+          this.router.navigate(['/']);
+        }
+		});
+}	
 
 
 }
