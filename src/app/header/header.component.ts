@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AuthenticationService} from "../services/authentication.service";
+import {Role} from '../models/role';
 
 @Component({
   selector: 'app-header',
@@ -23,5 +24,9 @@ logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
     }
+
+get isAdmin() {
+        return this.currentUser && this.currentUser.role === Role.Admin;
+    }    
     
 }
