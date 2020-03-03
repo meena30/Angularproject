@@ -41,7 +41,7 @@ const appRoutes: Routes = [
 {path: 'create', component: CreateComponent},
 {path: 'edit/:id', component: EditComponent},
 {path: 'login', component: LoginComponent},
-{path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],data: { roles: [Role.Admin] }}
+{path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],data: { roles: [Role.Admin, Role.Superadmin] }}
 ];
 
 @NgModule({
