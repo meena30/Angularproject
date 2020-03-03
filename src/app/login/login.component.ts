@@ -54,7 +54,7 @@ onSubmit() {
 
         //this.router.navigate([this.returnUrl]);
 
-        if(result.role == Role.Admin){
+        if(result.role == Role.Admin || result.role == Role.Superadmin){
             this.router.navigate(['dashboard']);
         }
         else{
