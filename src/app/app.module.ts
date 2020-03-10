@@ -32,6 +32,8 @@ import { UsereditComponent } from './useredit/useredit.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { AlertModule } from './alert/alert.module';
+
 const appRoutes: Routes = [
 
 { path: '', component: CustomerComponent, canActivate: [AuthGuard] },
@@ -58,11 +60,13 @@ const appRoutes: Routes = [
     UsereditComponent,
     LoginComponent,
     DashboardComponent
+    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    AlertModule,
     ReactiveFormsModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),

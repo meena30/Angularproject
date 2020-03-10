@@ -1,5 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import {CrudService} from "../services/crud.service";
+import { AlertService } from '../alert//alert.service';
+
 
 @Component({
   selector: 'app-customer',
@@ -10,10 +12,18 @@ export class CustomerComponent implements OnInit {
 
 public users: any = []; //declare variable as array
 
-constructor(private crudService: CrudService) { }
+options = {
+        autoClose: true,
+        keepAfterRouteChange: false
+    };
+
+constructor(private crudService: CrudService, protected alertService: AlertService) { }
 
 ngOnInit() {
-	this.getUserDetails();
+  
+  
+
+  this.getUserDetails();
 }
 
 getUserDetails(){
