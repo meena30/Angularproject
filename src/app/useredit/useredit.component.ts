@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {FormGroup,FormControl,FormBuilder,Validators} from '@angular/forms';
 import {CrudService} from "../services/crud.service";
+import { AlertService } from '../alert//alert.service';
 
 @Component({
   selector: 'app-useredit',
@@ -15,7 +16,12 @@ export class UsereditComponent implements OnInit {
   
   editID: any;
 
-  constructor(private formBuilder: FormBuilder,private crudService: CrudService, private router: Router, private route: ActivatedRoute) { }
+  options = {
+        autoClose: true,
+        keepAfterRouteChange: true
+    };
+
+  constructor(private formBuilder: FormBuilder,private crudService: CrudService, private router: Router, private route: ActivatedRoute, protected alertService: AlertService) { }
 
   ngOnInit() {
 
@@ -30,7 +36,6 @@ export class UsereditComponent implements OnInit {
          });
 
   		this.editUser(this.editID);
-
   }
 
   editUser(id){
@@ -50,7 +55,8 @@ export class UsereditComponent implements OnInit {
 
 onSubmit() {
           this.submitted = true;
-		// stop here if form is invalid
+
+         	// stop here if form is invalid
           if (this.editForm.invalid) {
             return;
           }
@@ -70,7 +76,9 @@ updateUser(value){
 	
 	this.crudService.updateUserData(formData).subscribe(data => {
 		//console.log(data);
-		this.router.navigate(['customer']);
+
+    this.alertService.success('Data updated successful', this.options);
+		this.router.navigate(['/']);
 	});
 
 }
