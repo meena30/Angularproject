@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AuthGuard } from './auth/auth.guard';
 
@@ -33,6 +34,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AlertModule } from './alert/alert.module';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
 
@@ -43,6 +45,7 @@ const appRoutes: Routes = [
 {path: 'create', component: CreateComponent},
 {path: 'edit/:id', component: EditComponent},
 {path: 'login', component: LoginComponent},
+{path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
 {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],data: { roles: [Role.Admin, Role.Superadmin] }}
 ];
 
@@ -59,7 +62,8 @@ const appRoutes: Routes = [
     OnepageComponent,
     UsereditComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
     
   ],
   imports: [
@@ -69,6 +73,7 @@ const appRoutes: Routes = [
     AlertModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    ImageCropperModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),

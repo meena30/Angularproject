@@ -1,0 +1,71 @@
+<p>Logged in as a {{currentUser.email}} </p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+                        
+          <div *ngIf="uploadResponse && uploadResponse.status === 'error'"></div>
+          <div *ngIf="uploadResponse && uploadResponse.status === 'success'">
+            <img [src]='uploadResponse.url' />
+          </div>
+                          
+            <div class="form-group">
+                <input type="file" name="avatar" (change)="onFileSelect($event)" />
+
+                <!-- <input type="file" name="file" (change)="fileChangeEvent($event)" /> -->
+
+                <image-cropper
+                  [imageChangedEvent]="imageChangedEvent"
+                  [maintainAspectRatio]="true"
+                  [aspectRatio]="4 / 3"
+                  format="png"
+                  (imageCropped)="imageCropped($event)"
+                  (imageLoaded)="imageLoaded()"
+                  (cropperReady)="cropperReady()"
+                  (loadImageFailed)="loadImageFailed()"
+              ></image-cropper>
+
+            </div>
+
+            <img [src]="croppedImage" />
+
+            
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+                <img [src]="previewUrl" height="300" />                 
+            </div>
+
+            
+             
+            <div class="form-group">
+                <button class="btn btn-primary"  (click)="onClick()">Upload</button>
+            </div>
+        </div>
+
+<div class="col-md-8"></div>
+
+    </div>
+</div>
+
+
+<!--<h1>PHP with Angular 7 File Upload Example</h1>
+<div>
+  <div *ngIf="uploadResponse && uploadResponse.status === 'error'">
+
+  </div>
+  <div *ngIf="uploadResponse && uploadResponse.status === 'success'">
+    <img [src]='uploadResponse.url' />
+  </div>
+
+  <div class="image-preview mb-3" *ngIf="previewUrl">
+    <img [src]="previewUrl" height="300" />                 
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <input type="file" name="avatar" (change)="onFileSelect($event)" />
+    <button type="submit">Upload</button>
+
+  </form>
+</div>-->
+
+

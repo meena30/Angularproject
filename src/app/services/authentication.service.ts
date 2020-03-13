@@ -13,7 +13,7 @@ public url = 'http://localhost/web_api/';
 
  private currentUserSubject: BehaviorSubject<any>;
  public currentUser: Observable<any>;
-
+  //public meena :any = JSON.parse(localStorage.getItem('currentUser'));
   constructor(private http: HttpClient) { 
   	this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -23,6 +23,10 @@ public get currentUserValue(){
     return this.currentUserSubject.value;
   }
 
+
+profileList(id){
+  return this.http.get(this.url+ 'upload.php?id=' + id);
+}
 
 login(data) {
         return this.http.post<any>(this.url + 'login.php', data)
@@ -34,7 +38,11 @@ login(data) {
                 
                 return user;
             }));
-    }
+}
+
+uploadFile(data){
+  return this.http.post<any>(this.url + 'upload.php', data);
+}
 
   logout() {
         // remove user from local storage to log user out
