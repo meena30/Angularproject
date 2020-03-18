@@ -13,7 +13,7 @@ public url = 'http://localhost/web_api/';
 
  private currentUserSubject: BehaviorSubject<any>;
  public currentUser: Observable<any>;
-  //public meena :any = JSON.parse(localStorage.getItem('currentUser'));
+public meena :any = JSON.parse(localStorage.getItem('currentUser'));
   constructor(private http: HttpClient) { 
   	this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
