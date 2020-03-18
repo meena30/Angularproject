@@ -1,20 +1,14 @@
-<p>Logged in as a {{currentUser.email}} </p>
-
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-                        
-          <div *ngIf="uploadResponse && uploadResponse.status === 'error'"></div>
-          <div *ngIf="uploadResponse && uploadResponse.status === 'success'">
-            <img [src]='uploadResponse.url' />
-          </div>
-                          
-            <div class="form-group">
-                <input type="file" name="avatar" (change)="onFileSelect($event)" />
-
-                <!-- <input type="file" name="file" (change)="fileChangeEvent($event)" /> -->
-
-                <image-cropper
+      <div class="col-sm-4">
+        <div *ngIf="uploadResponse && uploadResponse.status === 'error'"></div>
+        <div *ngIf="uploadResponse && uploadResponse.status === 'success'">
+          <img [src]='uploadResponse.url' />
+        </div>
+        <div class="form-group">
+            <input type="file" name="avatar" (change)="onFileSelect($event)" />
+            <!--<input type="file" name="file" (change)="fileChangeEvent($event)" />-->
+            <image-cropper
                   [imageChangedEvent]="imageChangedEvent"
                   [maintainAspectRatio]="true"
                   [aspectRatio]="4 / 3"
@@ -24,24 +18,76 @@
                   (cropperReady)="cropperReady()"
                   (loadImageFailed)="loadImageFailed()"
               ></image-cropper>
+        </div>
+        <img [src]="croppedImage" />
+        <div class="image-preview mb-3" *ngIf="previewUrl">
+          <img [src]="previewUrl" height="300" />                 
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary"  (click)="onClick()">Upload</button>
+        </div>
+      </div>  
 
-            </div>
+      <div class="col-sm-8">
+        <p>Logged in as a {{currentUser.email}} </p>
 
-            <img [src]="croppedImage" />
+        <div class="container">
+          
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 
-            
-            <div class="image-preview mb-3" *ngIf="previewUrl">
-                <img [src]="previewUrl" height="300" />                 
-            </div>
+          <div class="form-group">
+              <input type="text" placeholder="Enter your first name"  formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileForm.controls.firstName.errors }" />
+              <div *ngIf="submitted && profileForm.controls.firstName.errors" class="invalid-feedback">
+                <div *ngIf="profileForm.controls.firstName.errors.required">This field is required</div>
+              </div>
+          </div>
+          
+          <div class="form-group">
+              <input type="text" placeholder="Enter your last name" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileForm.controls.lastName.errors }"/>
+              <div *ngIf="submitted && profileForm.controls.lastName.errors" class="invalid-feedback">
+                <div *ngIf="profileForm.controls.lastName.errors.required">This field is required</div>
+              </div>
+          </div>
 
-            
-             
-            <div class="form-group">
-                <button class="btn btn-primary"  (click)="onClick()">Upload</button>
-            </div>
+          <div class="form-group">
+            <input id="male" type="radio" value="male" name="gender" formControlName="gender">
+            <label for="male">Male</label>
+            <input id="female" type="radio" value="female" name="gender" formControlName="gender">
+            <label for="female">Female</label>
+
+            <!--<div *ngIf="submitted && myForm.errors?.required">-->
+             <div *ngIf="submitted && profileForm.controls.gender.errors" >
+              <div *ngIf="profileForm.controls.gender.errors.required" style="color:#dc3545">This field is required</div>
+           </div>
+
+         </div>
+
+         <div class="form-group">
+            <input type="text" placeholder="DOB" class="form-control" formControlName="dob" bsDatepicker [maxDate]="maxDate" [ngClass]="{ 'is-invalid': submitted && profileForm.controls.dob.errors }" >
+            <div *ngIf="submitted && profileForm.controls.dob.errors" class="invalid-feedback">
+                <div *ngIf="profileForm.controls.dob.errors.required">This field is required</div>
+              </div>
+          </div>
+
+          <label *ngFor="let branch of lstBranch;" class="form-control">  
+            <input type="checkbox" value=" {{branch.value}}" (change)="onChange(branch.name,$event)">  
+              {{branch.name}} 
+          </label>
+          <label style="font-size:18px;color: red">{{errorMsg}}</label><br>
+          
+
+         
+         <div class="text-center">
+            <button class="btn btn-primary mr-1">Save</button>
         </div>
 
-<div class="col-md-8"></div>
+        </form>
+
+      </div>
+
+      </div>
+
+
 
     </div>
 </div>

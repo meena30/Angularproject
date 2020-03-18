@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AuthenticationService} from "../services/authentication.service";
-import {FormGroup,FormControl,FormBuilder,Validators} from '@angular/forms';
+import {FormGroup,FormControl,FormArray,FormBuilder,Validators} from '@angular/forms';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
@@ -19,11 +19,30 @@ export class ProfileComponent implements OnInit {
 	fileUploadProgress: string = null;
 	uploadedFilePath: string = null;
 
-  form: FormGroup;
+  profileForm: FormGroup;
+  submitted = false;
   uploadResponse;
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
+
+  minDate: Date;
+  maxDate: Date;
+  bsValue = new Date();
+
+resultText=[];  
+ values:string;  
+ count:number=0;  
+ errorMsg:string;
+ isChecked = false;
+
+ lstBranch : Array<any> = [
+    { id:1, name: 'Pear', value: 'pear' },
+    { id:2, name: 'Plum', value: 'plum' },
+    { id:3, name: 'Kiwi', value: 'kiwi' },
+    { id:4, name: 'Apple', value: 'apple' },
+    { id:5, name: 'Lime', value: 'lime' }
+  ];
 
   constructor(private formBuilder: FormBuilder,private router: Router, private authenticationService: AuthenticationService, private http: HttpClient) { 
 
@@ -33,15 +52,29 @@ export class ProfileComponent implements OnInit {
   //this.userDetails = JSON.parse(localStorage.getItem('currentUser'));
   //console.log(this.userDetails.email);
 
+  this.minDate = new Date();
+    this.maxDate = new Date();
+    this.minDate.setDate(this.minDate.getDate());
+    this.maxDate.setDate(this.maxDate.getDate());
+
 }
 
 ngOnInit() {
-  //console.log(this.authenticationService.meena)
-  //console.log(this.currentUser.id);
+  this.profileForm = this.formBuilder.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    gender: ['', Validators.required], // validation
+    //gender: ['male', [Validators.required]], // default selected value
+    dob: ['', Validators.required]
+    
+  });
 
-  this.form = this.formBuilder.group({
-      avatar: ['']
-    });
+  //console.log(this.authenticationService.meena)
+  //console.log(this.currentUser);
+
+  //this.form = this.formBuilder.group({
+      //avatar: ['']
+    //});
 
     this.getProfileDetails(this.currentUser.id);
 
@@ -109,7 +142,7 @@ onClick(){
     formData.append('avatar', this.fileData); // simple image upload
     //formData.append('file', this.croppedImage); // cropped image call 
 
-    console.log(this.croppedImage);
+    //console.log(this.croppedImage);
     
     this.authenticationService.uploadFile(formData).subscribe(
       (res) => {
@@ -123,8 +156,63 @@ onClick(){
     );
 }
 
+onChange(branchNamae:string,event) {  
+  this.errorMsg="";  
+   const checked = event.target.checked;  
+  
+    if (checked) {  
+      this.resultText.push(branchNamae);  
+      //alert(this.resultText);
+     
+       } else {  
+         const index = this.resultText.indexOf(branchNamae);  
+         this.resultText.splice(index, 1);  
+     }  
+     this.values=this.resultText.toString();  
+     const count=this.resultText.length;  
+     this.count=count;  
+  }  
 
-onSubmit() {}
+onSubmit() {
+  this.submitted = true;
+  const count=this.resultText.length;  
+  
+  if(count == 0)  
+  {  
+    this.isChecked = false;
+    this.errorMsg="Select at least one branch";  
+  }
+  else  
+  {  
+    this.count=count;
+    this.isChecked = true;  
+  }   
+  
+  // stop here if form is invalid
+  if (this.profileForm.invalid || this.isChecked === false) {
+   return;
+  }
+
+  var formData: any = new FormData();
+  formData.append("fname", this.profileForm.get('firstName').value);
+  formData.append("lname", this.profileForm.get('lastName').value);
+  formData.append("gender", this.profileForm.get('gender').value);
+  formData.append("dob", this.profileForm.get('dob').value);
+  formData.append("branch", this.resultText);
+
+var formField = {
+    firstName : this.profileForm.get('firstName').value,
+    lastName  : this.profileForm.get('lastName').value,
+    gender     : this.profileForm.get('gender').value,
+    dob  : this.profileForm.get('dob').value,
+    branch : this.resultText
+  };
+
+  console.log(formField);
+
+  //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.profileForm.value))
+  //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.resultText))
+}
 
   
 

@@ -13,6 +13,10 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AuthGuard } from './auth/auth.guard';
 
+// Datepicker module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 import {Role} from './models/role';
 
 
@@ -77,6 +81,8 @@ const appRoutes: Routes = [
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
